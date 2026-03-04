@@ -2,7 +2,7 @@
  * HistorySheet — slide-up modal showing past calculations.
  * Uses a React Native Modal for simplicity so state stays in the parent.
  */
-import React, { useRef } from "react";
+import React from "react";
 import {
   Modal,
   View,
@@ -19,11 +19,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
-  FadeIn,
-  FadeOut,
-  SlideInDown,
-  SlideOutDown,
 } from "react-native-reanimated";
 import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -40,8 +35,6 @@ interface HistorySheetProps {
   onSelect: (result: string) => void;
   onClear: () => void;
 }
-
-const AnimatedView = Animated.createAnimatedComponent(View);
 
 function HistoryItem({
   entry,

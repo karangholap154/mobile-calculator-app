@@ -111,18 +111,30 @@ export default function CalculatorScreen() {
   }, []);
 
   const gradients = isDark
-    ? [Colors.dark.gradientStart, Colors.dark.gradientMid, Colors.dark.gradientEnd]
-    : [Colors.light.gradientStart, Colors.light.gradientMid, Colors.light.gradientEnd];
+    ? [
+        Colors.dark.gradientStart,
+        Colors.dark.gradientMid,
+        Colors.dark.gradientEnd,
+      ]
+    : [
+        Colors.light.gradientStart,
+        Colors.light.gradientMid,
+        Colors.light.gradientEnd,
+      ];
 
   const displayAnimStyle = useAnimatedStyle(() => ({
     transform: [{ scale: displayScale.value }],
   }));
 
   const triggerDisplayFlash = useCallback(() => {
-    displayScale.value = withSpring(0.96, { damping: 20, stiffness: 500 }, () => {
-      displayScale.value = withSpring(1, { damping: 14, stiffness: 300 });
-    });
-  }, []);
+    displayScale.value = withSpring(
+      0.96,
+      { damping: 20, stiffness: 500 },
+      () => {
+        displayScale.value = withSpring(1, { damping: 14, stiffness: 300 });
+      },
+    );
+  }, [displayScale]);
 
   /**
    * Core dispatch: run the action, optionally record history when = completes.
@@ -149,7 +161,7 @@ export default function CalculatorScreen() {
       });
       triggerDisplayFlash();
     },
-    [triggerDisplayFlash]
+    [triggerDisplayFlash],
   );
 
   const toggleDark = () => {
@@ -231,7 +243,9 @@ export default function CalculatorScreen() {
             ]}
             onPress={toggleDark}
             accessibilityRole="button"
-            accessibilityLabel={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            accessibilityLabel={
+              isDark ? "Switch to light mode" : "Switch to dark mode"
+            }
           >
             <Feather
               name={isDark ? "sun" : "moon"}
@@ -299,7 +313,10 @@ interface CardContentsProps {
   theme: typeof Colors.light;
   previousExpression: string;
   displayAnimStyle: object;
-  dispatch: (action: (state: CalcState) => CalcState, isEquals?: boolean) => void;
+  dispatch: (
+    action: (state: CalcState) => CalcState,
+    isEquals?: boolean,
+  ) => void;
 }
 
 function CardContents({
